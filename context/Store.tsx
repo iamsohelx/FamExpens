@@ -13,6 +13,7 @@ interface StoreContextType {
   setLedgerName: (name: string) => void;
   familyMembers: string[];
   addFamilyMember: (name: string) => void;
+  setBudgetLimit: (limit: number) => void;
 }
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -20,7 +21,7 @@ const StoreContext = createContext<StoreContextType | undefined>(undefined);
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [budgetLimit] = useState(2000); // Fixed budget for demo
+  const [budgetLimit, setBudgetLimit] = useState(2000);
   const [ledgerName, setLedgerName] = useState('Dad');
   const [familyMembers, setFamilyMembers] = useState<string[]>(['Alex', 'Sarah', 'Mom', 'Dad']);
   const [loading, setLoading] = useState(true);
@@ -66,6 +67,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           console.log('Error fetching settings (might be empty):', settingsError);
         } else if (settingsData) {
           if (settingsData.ledger_name) setLedgerName(settingsData.ledger_name);
+          if (settingsData.budget_limit) setBudgetLimit(settingsData.budget_limit);
           if (settingsData.family_members) {
             setFamilyMembers(typeof settingsData.family_members === 'string'
               ? JSON.parse(settingsData.family_members)
@@ -97,7 +99,6 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     updateSettings();
   }, [ledgerName, loading, user]);
 
-  // Persist familyMembers changes
   useEffect(() => {
     if (loading || !user) return;
     const updateSettings = async () => {
@@ -109,6 +110,19 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     };
     updateSettings();
   }, [familyMembers, loading, user]);
+
+  // Persist budgetLimit changes
+  useEffect(() => {
+    if (loading || !user) return;
+    const updateSettings = async () => {
+      const { error } = await supabase
+        .from('settings')
+        .upsert({ user_id: user.id, budget_limit: budgetLimit });
+
+      if (error) console.error('Error updating budget limit:', error);
+    };
+    updateSettings();
+  }, [budgetLimit, loading, user]);
 
   const addTransaction = async (newTx: Omit<Transaction, 'id' | 'date'>) => {
     if (!user) return;
@@ -199,7 +213,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const summary = calculateSummary();
 
   return (
-    <StoreContext.Provider value={{ transactions, addTransaction, summary, budgetLimit, ledgerName, setLedgerName, familyMembers, addFamilyMember }}>
+    <StoreContext.Provider value={{ transactions, addTransaction, summary, budgetLimit, setBudgetLimit, ledgerName, setLedgerName, familyMembers, addFamilyMember }}>
       {children}
     </StoreContext.Provider>
   );

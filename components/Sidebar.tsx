@@ -18,12 +18,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-20 lg:w-64 h-screen bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800/50 flex flex-col fixed left-0 top-0 z-20 transition-all duration-300">
-      <div className="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-zinc-200 dark:border-zinc-800/50">
-        <div className="size-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-          <div className="size-3 rounded-full bg-indigo-500"></div>
+    <aside className="hidden lg:flex w-64 h-screen bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-r border-zinc-200 dark:border-zinc-800/50 flex-col fixed left-0 top-0 z-20 transition-all duration-300">
+      <div className="h-24 flex items-center justify-center lg:justify-start lg:px-8 border-b border-zinc-200 dark:border-zinc-800/50">
+        <div className="size-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-lg shadow-indigo-500/20 flex items-center justify-center text-white">
+          <CreditCard className="size-5" />
         </div>
-        <span className="hidden lg:block ml-3 font-semibold text-zinc-900 dark:text-zinc-100 tracking-wide text-sm">Ledger</span>
+        <div className="hidden lg:flex flex-col ml-3">
+          <span className="font-heading font-bold text-zinc-900 dark:text-zinc-100 tracking-tight text-lg">DadLedger</span>
+          <span className="text-[10px] text-zinc-500 font-medium uppercase tracking-wider">Family Finance</span>
+        </div>
       </div>
 
       <nav className="flex-1 py-8 flex flex-col gap-2 px-3 lg:px-4">
@@ -33,13 +36,16 @@ const Sidebar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center justify-center lg:justify-start h-10 px-3 rounded-lg transition-all duration-200 group ${isActive
-                ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800'
-                : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 hover:bg-zinc-100/50 dark:hover:bg-zinc-900/50'
+              className={`flex items-center justify-center lg:justify-start h-11 px-3 lg:px-4 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive
+                ? 'bg-zinc-100 dark:bg-zinc-900/50 text-indigo-600 dark:text-indigo-400 font-medium'
+                : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-900/30'
                 }`}
             >
-              <item.icon className={`size-4 ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-400'}`} />
-              <span className={`hidden lg:block ml-3 text-xs font-medium tracking-wide ${isActive ? 'text-zinc-900 dark:text-zinc-100' : ''}`}>
+              {isActive && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-indigo-500 rounded-r-full" />
+              )}
+              <item.icon className={`size-5 transition-colors ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300'}`} />
+              <span className="hidden lg:block ml-3 text-sm tracking-wide">
                 {item.label}
               </span>
             </Link>

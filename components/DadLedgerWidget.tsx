@@ -8,7 +8,7 @@ const DadLedgerWidget = () => {
   const dadTransactions = transactions.filter(t => t.isDadRelated).slice(0, 3);
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden relative group shadow-sm dark:shadow-none">
+    <div className="flex flex-col h-full glass-card rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-md transition-all duration-500">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 p-32 bg-indigo-500/5 dark:bg-indigo-600/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -24,39 +24,39 @@ const DadLedgerWidget = () => {
         </div>
 
         <div className="mb-8">
-           <span className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Total Balance</span>
-           <div className="text-4xl font-semibold text-zinc-900 dark:text-zinc-100 mt-2 tracking-tight">
-             {formatCurrency(summary.totalOwedToDad)}
-           </div>
-           <p className="text-xs text-zinc-500 mt-2">
-             Total owed to {ledgerName} by family
-           </p>
+          <span className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Total Balance</span>
+          <div className="text-4xl font-semibold text-zinc-900 dark:text-zinc-100 mt-2 tracking-tight">
+            {formatCurrency(summary.totalOwedToDad)}
+          </div>
+          <p className="text-xs text-zinc-500 mt-2">
+            Total owed to {ledgerName} by family
+          </p>
         </div>
 
         <div className="flex-1">
           <h4 className="text-[10px] font-medium text-zinc-400 dark:text-zinc-600 uppercase tracking-wider mb-3">Latest Activity</h4>
           <div className="space-y-3">
-             {dadTransactions.length === 0 ? (
-               <p className="text-xs text-zinc-500 italic">No history yet.</p>
-             ) : (
-                dadTransactions.map(tx => (
-                  <div key={tx.id} className="flex items-center justify-between text-xs group/item">
-                    <div className="flex flex-col">
-                        <span className="text-zinc-900 dark:text-zinc-200 font-medium">{tx.borrower || 'Family'}</span>
-                        <span className="text-zinc-500 dark:text-zinc-500 text-[10px]">{tx.description}</span>
-                    </div>
-                    <span className={`font-medium tabular-nums ${tx.type === 'dad_loan' ? 'text-indigo-600 dark:text-indigo-400' : 'text-emerald-600 dark:text-emerald-500'}`}>
-                      {tx.type === 'dad_loan' ? '+' : '-'}{formatCurrency(tx.amount)}
-                    </span>
+            {dadTransactions.length === 0 ? (
+              <p className="text-xs text-zinc-500 italic">No history yet.</p>
+            ) : (
+              dadTransactions.map(tx => (
+                <div key={tx.id} className="flex items-center justify-between text-xs group/item">
+                  <div className="flex flex-col">
+                    <span className="text-zinc-900 dark:text-zinc-200 font-medium">{tx.borrower || 'Family'}</span>
+                    <span className="text-zinc-500 dark:text-zinc-500 text-[10px]">{tx.description}</span>
                   </div>
-                ))
-             )}
+                  <span className={`font-medium tabular-nums ${tx.type === 'dad_loan' ? 'text-indigo-600 dark:text-indigo-400' : 'text-emerald-600 dark:text-emerald-500'}`}>
+                    {tx.type === 'dad_loan' ? '+' : '-'}{formatCurrency(tx.amount)}
+                  </span>
+                </div>
+              ))
+            )}
           </div>
         </div>
-        
+
         <button className="mt-6 w-full group flex items-center justify-between p-3 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 dark:bg-zinc-800/50 dark:hover:bg-zinc-800 dark:border-zinc-700/50 transition-all text-xs font-medium text-zinc-600 dark:text-zinc-300">
-           <span>View Full Ledger</span>
-           <ArrowRight className="size-3.5 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors" />
+          <span>View Full Ledger</span>
+          <ArrowRight className="size-3.5 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors" />
         </button>
       </div>
     </div>

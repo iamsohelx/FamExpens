@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Sidebar from './components/Sidebar';
+import BottomNav from './components/BottomNav';
 import Dashboard from './pages/Dashboard';
 import DadLedgerPage from './pages/DadLedgerPage';
 import ExpensesPage from './pages/ExpensesPage';
@@ -38,7 +39,8 @@ const AppContent = () => {
     <ProtectedRoute>
       <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
         <Sidebar />
-        <div className="flex-1 ml-20 lg:ml-64 transition-all duration-300">
+        <BottomNav />
+        <div className="flex-1 w-full lg:ml-64 pb-24 lg:pb-0 transition-all duration-300">
           <AnimatePresence mode='wait'>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Dashboard /></PageTransition>} />

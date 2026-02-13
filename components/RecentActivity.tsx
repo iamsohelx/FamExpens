@@ -24,7 +24,7 @@ const RecentActivity = () => {
   const recent = transactions.slice(0, 5);
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800/50 rounded-2xl overflow-hidden shadow-sm dark:shadow-none">
+    <div className="flex flex-col h-full glass-card rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-500">
       <div className="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800/50 flex justify-between items-center bg-zinc-50/50 dark:bg-transparent">
         <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 tracking-wide">Recent Activity</h3>
         <button className="text-xs text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">View All</button>
@@ -48,8 +48,8 @@ const RecentActivity = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className={`size-8 rounded-full flex items-center justify-center border ${tx.isDadRelated
-                      ? 'bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400'
-                      : 'bg-zinc-100 border-zinc-200 text-zinc-500 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400'
+                    ? 'bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400'
+                    : 'bg-zinc-100 border-zinc-200 text-zinc-500 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400'
                     }`}>
                     {tx.isDadRelated ? <User className="size-3.5" /> : (
                       tx.type === 'income' ? <ArrowDownLeft className="size-3.5 text-emerald-500 dark:text-emerald-400" /> : <ArrowUpRight className="size-3.5" />
