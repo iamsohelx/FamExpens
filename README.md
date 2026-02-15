@@ -2,8 +2,6 @@
 
 A modern, AI-powered family expense tracker designed to help you manage shared finances, track personal spending, and keep a ledger of family loans (specifically "Dad Loans"). Built with React, Supabase, and Gemini AI.
 
-![DadLedger Banner](https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6)
-
 ## 🚀 Features
 
 - **Transaction Tracking**: Log expenses, income, loans, and repayments.
