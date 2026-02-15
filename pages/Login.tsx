@@ -128,6 +128,11 @@ const Login = () => {
                 <p className="text-center text-xs text-zinc-500 dark:text-zinc-400 mt-6">
                     Secure family expense tracking powered by Supabase
                 </p>
+                <div className="text-center text-xs text-zinc-500 dark:text-zinc-400 mt-6">
+                    <p>Dummy Credentials</p>
+                    <p>nobita@nobi.com</p>
+                    <p>shizuka123</p>
+                </div>
             </motion.div>
         </div>
     );
